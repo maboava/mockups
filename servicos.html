@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEPARK - Serviços</title>
+    <title>SEPARK - Serviços do Estacionamento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -503,15 +503,15 @@
                 <div class="logo-text">SEPARK</div>
             </div>
             <div style="color: rgba(255, 255, 255, 0.8);">
-                Bem-vindo ao seu sistema de controle de gastos veiculares
+                Bem-vindo ao sistema de gestão do estacionamento e lavagens SEPARK
             </div>
         </div>
     </header>
     
     <nav>
         <div class="nav-container">
-            <div class="nav-item" onclick="location.href='index.html'">Meus Veículos</div>
-            <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Veículo</div>
+            <div class="nav-item" onclick="location.href='index.html'">Veículos no Estacionamento</div>
+            <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Registro</div>
             <div class="nav-item" onclick="location.href='relatorio.html'">Relatório Financeiro</div>
             <div class="nav-item active">Serviços</div>
         </div>
@@ -520,7 +520,7 @@
     <div class="container">
         <div class="main-content">
             <div class="content-section">
-                <h2><i class="fas fa-tools"></i> Gerenciamento de Serviços</h2>
+                <h2><i class="fas fa-tools"></i> Gerenciamento de Serviços e Lavagens</h2>
                 
                 <div class="tabs">
                     <div class="tab active" onclick="showTab('agendamentos')">Meus Agendamentos</div>
@@ -841,13 +841,13 @@
                                         <label for="service-type">Tipo de Serviço*</label>
                                         <select id="service-type" name="service-type" required>
                                             <option value="">Selecione o tipo</option>
-                                            <option value="manutencao">Manutenção</option>
-                                            <option value="revisao">Revisão</option>
-                                            <option value="lavagem">Lavagem</option>
-                                            <option value="pneus">Pneus</option>
-                                            <option value="combustivel">Combustível</option>
-                                            <option value="seguro">Seguro</option>
-                                            <option value="documentacao">Documentação</option>
+                                            <option value="checkin">Check-in de Estacionamento</option>
+                                            <option value="checkout">Checkout Programado</option>
+                                            <option value="lavagem-express">Lavagem Express</option>
+                                            <option value="lavagem-completa">Lavagem Completa</option>
+                                            <option value="higienizacao">Higienização Interna</option>
+                                            <option value="protecao-pintura">Proteção de Pintura</option>
+                                            <option value="polimento">Polimento e Cristalização</option>
                                             <option value="outro">Outro</option>
                                         </select>
                                     </div>
@@ -881,13 +881,13 @@
                                         <input type="number" step="0.01" id="service-estimated-cost" name="service-estimated-cost">
                                     </div>
                                     <div class="form-group">
-                                        <label for="service-mileage">Quilometragem Atual</label>
-                                        <input type="number" id="service-mileage" name="service-mileage">
+                                        <label for="service-spot">Vaga do Estacionamento</label>
+                                        <input type="text" id="service-spot" name="service-spot" placeholder="Ex: B12">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="service-notes">Observações</label>
+                                    <label for="service-notes">Observações do atendimento</label>
                                     <textarea id="service-notes" name="service-notes" rows="4"></textarea>
                                 </div>
                                 
@@ -918,7 +918,7 @@
         </div>
         
         <footer>
-            &copy; 2023 SEPARK - Sistema de Controle de Gastos Veiculares | Versão 2.1.0
+            &copy; 2023 SEPARK - Sistema de Gestão de Estacionamento e Lavagens | Versão 2.1.0
         </footer>
     </div>
 

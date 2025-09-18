@@ -440,19 +440,19 @@
             color: #2c3e50;
         }
         
-        .documents-section, .history-section {
+        .details-section {
             margin-top: 30px;
             border-top: 1px solid #f0f0f0;
             padding-top: 20px;
         }
-        
-        .documents-section h3, .history-section h3 {
+
+        .details-section h3 {
             font-size: 18px;
             margin-bottom: 15px;
             color: #2c3e50;
         }
-        
-        .document-item, .history-item {
+
+        .detail-list-item {
             padding: 12px 15px;
             margin-bottom: 10px;
             background-color: #f8f9fa;
@@ -460,35 +460,91 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
         }
-        
-        .document-name, .history-title {
+
+        .detail-list-title {
             font-weight: 500;
         }
-        
-        .document-date, .history-date {
+
+        .detail-list-date {
             font-size: 13px;
             color: #6c757d;
+            margin-top: 4px;
         }
-        
+
+        .detail-list-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background-color: rgba(26, 76, 124, 0.1);
+            color: #1a4c7c;
+        }
+
+        .tag-completed {
+            background-color: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+        }
+
+        .tag-progress {
+            background-color: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+        }
+
+        .tag-scheduled {
+            background-color: rgba(241, 196, 15, 0.15);
+            color: #f39c12;
+        }
+
+        .tag-cancelled {
+            background-color: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+        }
+
+        .notes-block {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .notes-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .notes-text {
+            font-size: 14px;
+            color: #495057;
+            line-height: 1.5;
+        }
+
         .status-badge {
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 500;
         }
-        
-        .status-active {
+
+        .status-parked {
             background-color: rgba(46, 204, 113, 0.2);
             color: #27ae60;
         }
-        
-        .status-maintenance {
+
+        .status-washing {
             background-color: rgba(52, 152, 219, 0.2);
             color: #3498db;
         }
-        
-        .status-inactive {
+
+        .status-departed {
             background-color: rgba(108, 117, 125, 0.2);
             color: #6c757d;
         }
@@ -512,14 +568,14 @@
                 <div class="logo-text">SEPARK</div>
             </div>
             <div style="color: rgba(255, 255, 255, 0.8);">
-                Bem-vindo ao seu sistema de controle de gastos veiculares
+                Bem-vindo ao sistema de gestão do estacionamento e lavagens SEPARK
             </div>
         </div>
     </header>
     
     <nav>
         <div class="nav-container">
-            <div class="nav-item active">Meus Veículos</div>
+            <div class="nav-item active">Veículos no Estacionamento</div>
             <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Veículo</div>
             <div class="nav-item" onclick="location.href='relatorio.html'">Relatório Financeiro</div>
             <div class="nav-item" onclick="location.href='servicos.html'">Serviços</div>
@@ -529,15 +585,15 @@
     <div class="container">
         <div class="main-content">
             <div class="content-section">
-                <h2><i class="fas fa-car-side"></i> Meus Veículos</h2>
-                
+                <h2><i class="fas fa-car-side"></i> Veículos no Estacionamento</h2>
+
                 <div class="search-filter-bar">
-                    <input type="text" placeholder="Buscar por modelo, placa ou ano..." id="search-input">
+                    <input type="text" placeholder="Buscar por modelo, placa ou vaga..." id="search-input">
                     <select id="status-filter">
                         <option value="">Status: Todos</option>
-                        <option value="ativo">Ativos</option>
-                        <option value="manutencao">Em Manutenção</option>
-                        <option value="inativo">Inativos</option>
+                        <option value="parked">Estacionados</option>
+                        <option value="washing">Em Lavagem</option>
+                        <option value="departed">Finalizados</option>
                     </select>
                     <button onclick="filterVehicles()"><i class="fas fa-search"></i> Buscar</button>
                 </div>
@@ -546,27 +602,27 @@
                     <!-- Veículo 1 -->
                     <div class="vehicle-card">
                         <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHl1bmRhaSUyMGhiMjB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60')">
-                            <div class="vehicle-status">Ativo</div>
+                            <div class="vehicle-status">Estacionado</div>
                         </div>
                         <div class="vehicle-details">
                             <div class="vehicle-name">Hyundai HB20</div>
                             <div class="vehicle-plate">Placa: ABC-1234</div>
                             <div class="vehicle-info">
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Ano</span>
-                                    <span class="vehicle-info-value">2022</span>
+                                    <span class="vehicle-info-label">Vaga</span>
+                                    <span class="vehicle-info-value">B12</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Combustível</span>
-                                    <span class="vehicle-info-value">Flex</span>
+                                    <span class="vehicle-info-label">Plano</span>
+                                    <span class="vehicle-info-value">Mensalista Premium</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">KM Atual</span>
-                                    <span class="vehicle-info-value">12.450</span>
+                                    <span class="vehicle-info-label">Entrada</span>
+                                    <span class="vehicle-info-value">10/08/2023 08:15</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Última revisão</span>
-                                    <span class="vehicle-info-value">10/08/2023</span>
+                                    <span class="vehicle-info-label">Lavagem</span>
+                                    <span class="vehicle-info-value">Completa às 14h</span>
                                 </div>
                             </div>
                             <div class="vehicle-actions">
@@ -580,27 +636,27 @@
                     <!-- Veículo 2 -->
                     <div class="vehicle-card">
                         <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRveW90YSUyMGNvcm9sbGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60')">
-                            <div class="vehicle-status">Em Manutenção</div>
+                            <div class="vehicle-status">Em Lavagem</div>
                         </div>
                         <div class="vehicle-details">
                             <div class="vehicle-name">Toyota Corolla</div>
                             <div class="vehicle-plate">Placa: DEF-5678</div>
                             <div class="vehicle-info">
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Ano</span>
-                                    <span class="vehicle-info-value">2021</span>
+                                    <span class="vehicle-info-label">Vaga</span>
+                                    <span class="vehicle-info-value">C07</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Combustível</span>
-                                    <span class="vehicle-info-value">Híbrido</span>
+                                    <span class="vehicle-info-label">Plano</span>
+                                    <span class="vehicle-info-value">Rotativo Executivo</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">KM Atual</span>
-                                    <span class="vehicle-info-value">25.780</span>
+                                    <span class="vehicle-info-label">Entrada</span>
+                                    <span class="vehicle-info-value">10/08/2023 07:50</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Última revisão</span>
-                                    <span class="vehicle-info-value">05/07/2023</span>
+                                    <span class="vehicle-info-label">Lavagem</span>
+                                    <span class="vehicle-info-value">Detalhada em execução</span>
                                 </div>
                             </div>
                             <div class="vehicle-actions">
@@ -614,27 +670,27 @@
                     <!-- Veículo 3 -->
                     <div class="vehicle-card">
                         <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dm9sa3N3YWdlbiUyMGdvbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60')">
-                            <div class="vehicle-status" style="background-color: rgba(108, 117, 125, 0.9);">Inativo</div>
+                            <div class="vehicle-status" style="background-color: rgba(108, 117, 125, 0.9);">Finalizado</div>
                         </div>
                         <div class="vehicle-details">
                             <div class="vehicle-name">Volkswagen Gol</div>
                             <div class="vehicle-plate">Placa: GHI-9012</div>
                             <div class="vehicle-info">
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Ano</span>
-                                    <span class="vehicle-info-value">2019</span>
+                                    <span class="vehicle-info-label">Vaga</span>
+                                    <span class="vehicle-info-value">A03</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Combustível</span>
-                                    <span class="vehicle-info-value">Flex</span>
+                                    <span class="vehicle-info-label">Plano</span>
+                                    <span class="vehicle-info-value">Diária</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">KM Atual</span>
-                                    <span class="vehicle-info-value">45.320</span>
+                                    <span class="vehicle-info-label">Entrada</span>
+                                    <span class="vehicle-info-value">09/08/2023 09:10</span>
                                 </div>
                                 <div class="vehicle-info-item">
-                                    <span class="vehicle-info-label">Última revisão</span>
-                                    <span class="vehicle-info-value">22/05/2023</span>
+                                    <span class="vehicle-info-label">Lavagem</span>
+                                    <span class="vehicle-info-value">Express finalizada</span>
                                 </div>
                             </div>
                             <div class="vehicle-actions">
@@ -653,7 +709,7 @@
         </div>
         
         <footer>
-            &copy; 2023 SEPARK - Sistema de Controle de Gastos Veiculares | Versão 2.1.0
+            &copy; 2023 SEPARK - Sistema de Gestão de Estacionamento e Lavagens | Versão 2.1.0
         </footer>
     </div>
     
@@ -684,97 +740,74 @@
                 id: 1,
                 name: "Hyundai HB20",
                 plate: "ABC-1234",
-                year: 2022,
-                color: "Branco",
-                fuel: "Flex",
-                mileage: 12450,
-                lastService: "10/08/2023",
-                status: "active",
-                chassis: "9BHBG51DAEP021735",
-                renavam: "12345678912",
-                purchase: "15/01/2022",
-                price: "R$ 72.990,00",
-                insurance: {
-                    company: "SeguroAuto",
-                    policy: "32156-981",
-                    expiry: "30/01/2024",
-                    value: "R$ 1.750,00"
-                },
-                documents: [
-                    { name: "CRLV 2023", date: "28/02/2023", file: "#" },
-                    { name: "Comprovante IPVA 2023", date: "15/03/2023", file: "#" },
-                    { name: "Contrato de Seguro", date: "15/01/2023", file: "#" }
+                spot: "B12",
+                plan: "Mensalista Premium",
+                status: "parked",
+                entry: "10/08/2023 08:15",
+                exit: "10/08/2023 18:00",
+                nextWash: "Lavagem completa às 14h",
+                washFrequency: "Semanal",
+                owner: "Carlos Lima",
+                contact: "(11) 99999-1234",
+                notes: "Cliente mensalista. Solicita cristalização a cada 30 dias.",
+                image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHl1bmRhaSUyMGhiMjB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                washes: [
+                    { title: "Lavagem completa", date: "03/08/2023", status: "Concluída", statusClass: "tag-completed", value: "R$ 70,00" },
+                    { title: "Higienização interna", date: "27/07/2023", status: "Concluída", statusClass: "tag-completed", value: "R$ 120,00" },
+                    { title: "Lavagem completa", date: "Agendada 10/08/2023 14:00", status: "Agendada", statusClass: "tag-scheduled", value: "R$ 70,00" }
                 ],
-                history: [
-                    { title: "Troca de óleo e filtros", date: "10/08/2023", km: 12200, value: "R$ 350,00" },
-                    { title: "Revisão dos 10.000 Km", date: "15/03/2023", km: 10050, value: "R$ 850,00" },
-                    { title: "Troca de pastilhas de freio", date: "10/01/2023", km: 8200, value: "R$ 420,00" }
-                ],
-                image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHl1bmRhaSUyMGhiMjB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                parkingHistory: [
+                    { title: "Mensalidade Agosto/2023", date: "01/08/2023", duration: "30 dias", value: "R$ 320,00" },
+                    { title: "Pernoite adicional", date: "28/07/2023", duration: "12h", value: "R$ 25,00" }
+                ]
             },
             2: {
                 id: 2,
                 name: "Toyota Corolla",
                 plate: "DEF-5678",
-                year: 2021,
-                color: "Prata",
-                fuel: "Híbrido",
-                mileage: 25780,
-                lastService: "05/07/2023",
-                status: "maintenance",
-                chassis: "9BRBL3HE0J0132855",
-                renavam: "98765432198",
-                purchase: "20/06/2021",
-                price: "R$ 145.990,00",
-                insurance: {
-                    company: "SeguroTotal",
-                    policy: "82546-123",
-                    expiry: "15/06/2024",
-                    value: "R$ 2.800,00"
-                },
-                documents: [
-                    { name: "CRLV 2023", date: "15/01/2023", file: "#" },
-                    { name: "Comprovante IPVA 2023", date: "10/02/2023", file: "#" },
-                    { name: "Contrato de Seguro", date: "25/06/2023", file: "#" }
+                spot: "C07",
+                plan: "Rotativo Executivo",
+                status: "washing",
+                entry: "10/08/2023 07:50",
+                exit: "Previsão 10/08/2023 19:00",
+                nextWash: "Lavagem detalhada em execução",
+                washFrequency: "Sob demanda",
+                owner: "Ana Souza",
+                contact: "(11) 98888-4567",
+                notes: "Avisar recepção corporativa quando o veículo estiver liberado.",
+                image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRveW90YSUyMGNvcm9sbGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                washes: [
+                    { title: "Lavagem detalhada premium", date: "10/08/2023 07:50", status: "Em andamento", statusClass: "tag-progress", value: "R$ 180,00" },
+                    { title: "Lavagem express", date: "02/08/2023", status: "Concluída", statusClass: "tag-completed", value: "R$ 50,00" }
                 ],
-                history: [
-                    { title: "Revisão completa", date: "05/07/2023", km: 24500, value: "R$ 1.200,00" },
-                    { title: "Alinhamento e balanceamento", date: "03/04/2023", km: 19800, value: "R$ 320,00" },
-                    { title: "Revisão dos 15.000 Km", date: "12/12/2022", km: 15100, value: "R$ 980,00" }
-                ],
-                image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRveW90YSUyMGNvcm9sbGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                parkingHistory: [
+                    { title: "Diária executiva", date: "10/08/2023", duration: "Prev. 10h", value: "R$ 65,00" },
+                    { title: "Pernoite executivo", date: "30/07/2023", duration: "24h", value: "R$ 90,00" }
+                ]
             },
             3: {
                 id: 3,
                 name: "Volkswagen Gol",
                 plate: "GHI-9012",
-                year: 2019,
-                color: "Vermelho",
-                fuel: "Flex",
-                mileage: 45320,
-                lastService: "22/05/2023",
-                status: "inactive",
-                chassis: "9BWAA45U8KT098765",
-                renavam: "45678912356",
-                purchase: "10/08/2019",
-                price: "R$ 59.990,00",
-                insurance: {
-                    company: "SeguraCarro",
-                    policy: "12345-678",
-                    expiry: "12/08/2023",
-                    value: "R$ 1.450,00"
-                },
-                documents: [
-                    { name: "CRLV 2023", date: "10/01/2023", file: "#" },
-                    { name: "Comprovante IPVA 2023", date: "05/03/2023", file: "#" },
-                    { name: "Contrato de Seguro (Vencido)", date: "10/08/2022", file: "#" }
+                spot: "A03",
+                plan: "Diária",
+                status: "departed",
+                entry: "09/08/2023 09:10",
+                exit: "09/08/2023 18:45",
+                nextWash: "Lavagem express finalizada",
+                washFrequency: "Eventual",
+                owner: "Mariana Ribeiro",
+                contact: "(11) 97777-6543",
+                notes: "Pagamento realizado via aplicativo. Liberar somente após confirmação.",
+                image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dm9sa3N3YWdlbiUyMGdvbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                washes: [
+                    { title: "Lavagem express", date: "09/08/2023 17:30", status: "Concluída", statusClass: "tag-completed", value: "R$ 35,00" },
+                    { title: "Lavagem completa", date: "20/07/2023", status: "Concluída", statusClass: "tag-completed", value: "R$ 65,00" }
                 ],
-                history: [
-                    { title: "Troca de correia dentada", date: "22/05/2023", km: 45000, value: "R$ 620,00" },
-                    { title: "Troca de amortecedores", date: "15/01/2023", km: 42500, value: "R$ 980,00" },
-                    { title: "Revisão completa", date: "08/10/2022", km: 38200, value: "R$ 750,00" }
-                ],
-                image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dm9sa3N3YWdlbiUyMGdvbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                parkingHistory: [
+                    { title: "Diária 09/08/2023", date: "09/08/2023", duration: "09h35", value: "R$ 45,00" },
+                    { title: "Estadia promocional", date: "15/07/2023", duration: "06h", value: "R$ 25,00" }
+                ]
             }
         };
         
@@ -782,10 +815,18 @@
         function filterVehicles() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const statusFilter = document.getElementById('status-filter').value;
-            
+
+            const statusLabels = {
+                'parked': 'Estacionados',
+                'washing': 'Em Lavagem',
+                'departed': 'Finalizados'
+            };
+
+            const statusText = statusFilter ? (statusLabels[statusFilter] || statusFilter) : 'Todos';
+
             // Simulação de filtro - num ambiente real, isso seria feito via AJAX
-            alert(`Buscando veículos com: "${searchTerm}" e status: ${statusFilter || 'Todos'}`);
-            
+            alert(`Buscando veículos com: "${searchTerm}" e status: ${statusText}`);
+
             // Aqui você implementaria a lógica real para filtrar os veículos
             // por enquanto apenas simulamos com um alerta
         }
@@ -797,27 +838,50 @@
         function viewDetails(id) {
             currentVehicleId = id;
             const vehicle = vehiclesData[id];
-            
+
             if (!vehicle) {
                 alert('Veículo não encontrado!');
                 return;
             }
-            
-            // Preencher o modal com os dados do veículo
+
             const modalContent = document.getElementById('vehicle-detail-content');
-            
-            // Status class
-            let statusClass = 'status-inactive';
-            let statusText = 'Inativo';
-            
-            if (vehicle.status === 'active') {
-                statusClass = 'status-active';
-                statusText = 'Ativo';
-            } else if (vehicle.status === 'maintenance') {
-                statusClass = 'status-maintenance';
-                statusText = 'Em Manutenção';
+
+            let statusClass = 'status-departed';
+            let statusText = 'Finalizado';
+
+            if (vehicle.status === 'parked') {
+                statusClass = 'status-parked';
+                statusText = 'Estacionado';
+            } else if (vehicle.status === 'washing') {
+                statusClass = 'status-washing';
+                statusText = 'Em Lavagem';
             }
-            
+
+            const washesContent = (vehicle.washes && vehicle.washes.length > 0)
+                ? vehicle.washes.map(wash => `
+                        <div class="detail-list-item">
+                            <div>
+                                <div class="detail-list-title">${wash.title}</div>
+                                <div class="detail-list-date">${wash.date}</div>
+                            </div>
+                            <div class="detail-list-value">${wash.value}</div>
+                            <span class="status-tag ${wash.statusClass || ''}">${wash.status}</span>
+                        </div>
+                    `).join('')
+                : '<div class="detail-list-item"><div class="detail-list-title">Nenhum serviço registrado.</div></div>';
+
+            const parkingContent = (vehicle.parkingHistory && vehicle.parkingHistory.length > 0)
+                ? vehicle.parkingHistory.map(item => `
+                        <div class="detail-list-item">
+                            <div>
+                                <div class="detail-list-title">${item.title}</div>
+                                <div class="detail-list-date">${item.date} | ${item.duration}</div>
+                            </div>
+                            <div class="detail-list-value">${item.value}</div>
+                        </div>
+                    `).join('')
+                : '<div class="detail-list-item"><div class="detail-list-title">Nenhum registro de permanência.</div></div>';
+
             modalContent.innerHTML = `
                 <div class="vehicle-detail-content">
                     <div>
@@ -836,69 +900,53 @@
                             <div class="detail-value">${vehicle.plate}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Ano</div>
-                            <div class="detail-value">${vehicle.year}</div>
+                            <div class="detail-label">Vaga</div>
+                            <div class="detail-value">${vehicle.spot}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Cor</div>
-                            <div class="detail-value">${vehicle.color}</div>
+                            <div class="detail-label">Plano</div>
+                            <div class="detail-value">${vehicle.plan}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Combustível</div>
-                            <div class="detail-value">${vehicle.fuel}</div>
+                            <div class="detail-label">Entrada</div>
+                            <div class="detail-value">${vehicle.entry}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Quilometragem</div>
-                            <div class="detail-value">${vehicle.mileage.toLocaleString('pt-BR')} Km</div>
+                            <div class="detail-label">Saída prevista</div>
+                            <div class="detail-value">${vehicle.exit || '—'}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Chassi</div>
-                            <div class="detail-value">${vehicle.chassis}</div>
+                            <div class="detail-label">Próxima lavagem</div>
+                            <div class="detail-value">${vehicle.nextWash}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">RENAVAM</div>
-                            <div class="detail-value">${vehicle.renavam}</div>
+                            <div class="detail-label">Frequência de lavagem</div>
+                            <div class="detail-value">${vehicle.washFrequency}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Data de Compra</div>
-                            <div class="detail-value">${vehicle.purchase}</div>
+                            <div class="detail-label">Cliente</div>
+                            <div class="detail-value">${vehicle.owner}</div>
                         </div>
                         <div class="detail-item">
-                            <div class="detail-label">Valor de Aquisição</div>
-                            <div class="detail-value">${vehicle.price}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Seguradora</div>
-                            <div class="detail-value">${vehicle.insurance.company}</div>
-                        </div>
-                        <div class="detail-item">
-                            <div class="detail-label">Vencimento do Seguro</div>
-                            <div class="detail-value">${vehicle.insurance.expiry}</div>
+                            <div class="detail-label">Contato</div>
+                            <div class="detail-value">${vehicle.contact}</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="documents-section">
-                    <h3>Documentos</h3>
-                    ${vehicle.documents.map(doc => `
-                        <div class="document-item">
-                            <div class="document-name">${doc.name}</div>
-                            <div class="document-date">${doc.date}</div>
-                        </div>
-                    `).join('')}
+
+                <div class="notes-block">
+                    <div class="notes-title">Observações</div>
+                    <div class="notes-text">${vehicle.notes || 'Sem observações registradas.'}</div>
                 </div>
-                
-                <div class="history-section">
-                    <h3>Histórico de Manutenções</h3>
-                    ${vehicle.history.map(item => `
-                        <div class="history-item">
-                            <div>
-                                <div class="history-title">${item.title}</div>
-                                <div class="history-date">${item.date} | ${item.km.toLocaleString('pt-BR')} Km</div>
-                            </div>
-                            <div class="history-value">${item.value}</div>
-                        </div>
-                    `).join('')}
+
+                <div class="details-section">
+                    <h3>Serviços de Lavagem</h3>
+                    ${washesContent}
+                </div>
+
+                <div class="details-section">
+                    <h3>Histórico de Permanência</h3>
+                    ${parkingContent}
                 </div>
             `;
             

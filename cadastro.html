@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEPARK - Cadastrar Veículo</title>
+    <title>SEPARK - Cadastrar Registro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -288,15 +288,15 @@
                 <div class="logo-text">SEPARK</div>
             </div>
             <div style="color: rgba(255, 255, 255, 0.8);">
-                Bem-vindo ao seu sistema de controle de gastos veiculares
+                Bem-vindo ao sistema de gestão do estacionamento e lavagens SEPARK
             </div>
         </div>
     </header>
     
     <nav>
         <div class="nav-container">
-            <div class="nav-item" onclick="location.href='index.html'">Meus Veículos</div>
-            <div class="nav-item active">Cadastrar Veículo</div>
+            <div class="nav-item" onclick="location.href='index.html'">Veículos no Estacionamento</div>
+            <div class="nav-item active">Cadastrar Registro</div>
             <div class="nav-item" onclick="location.href='relatorio.html'">Relatório Financeiro</div>
             <div class="nav-item" onclick="location.href='servicos.html'">Serviços</div>
         </div>
@@ -305,12 +305,12 @@
     <div class="container">
         <div class="main-content">
             <div class="content-section">
-                <h2><i class="fas fa-plus-circle"></i> Cadastrar Novo Veículo</h2>
+                <h2><i class="fas fa-plus-circle"></i> Cadastrar Veículo no Estacionamento</h2>
                 
                 <form id="vehicle-form" onsubmit="return saveVehicle(event)">
                     <!-- Seção de Informações Básicas -->
                     <div class="form-section">
-                        <h3>Informações Básicas</h3>
+                        <h3>Informações do Veículo</h3>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="model">Modelo*</label>
@@ -331,67 +331,97 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="plate">Placa*</label>
                                 <input type="text" id="plate" name="plate" placeholder="Ex: ABC-1234" required>
                             </div>
                             <div class="form-group">
-                                <label for="year">Ano de Fabricação*</label>
-                                <input type="number" id="year" name="year" min="1900" max="2030" required>
+                                <label for="vehicle-type">Tipo de Veículo*</label>
+                                <select id="vehicle-type" name="vehicle-type" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="carro">Carro</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="pickup">Pickup</option>
+                                    <option value="moto">Moto</option>
+                                    <option value="van">Van/Utilitário</option>
+                                </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="color">Cor</label>
                                 <input type="text" id="color" name="color">
                             </div>
                             <div class="form-group">
-                                <label for="fuel-type">Tipo de Combustível*</label>
-                                <select id="fuel-type" name="fuel-type" required>
-                                    <option value="">Selecione o combustível</option>
-                                    <option value="gasolina">Gasolina</option>
-                                    <option value="etanol">Etanol</option>
-                                    <option value="flex">Flex</option>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="gás">GNV</option>
-                                    <option value="híbrido">Híbrido</option>
-                                    <option value="elétrico">Elétrico</option>
-                                </select>
+                                <label for="parking-spot">Vaga*</label>
+                                <input type="text" id="parking-spot" name="parking-spot" placeholder="Ex: B12" required>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Seção de Características -->
                     <div class="form-section">
-                        <h3>Características e Documentação</h3>
+                        <h3>Dados do Estacionamento</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="chassis">Número do Chassi</label>
-                                <input type="text" id="chassis" name="chassis">
+                                <label for="plan-type">Plano do Estacionamento*</label>
+                                <select id="plan-type" name="plan-type" required>
+                                    <option value="">Selecione um plano</option>
+                                    <option value="mensalista-premium">Mensalista Premium</option>
+                                    <option value="mensalista-standard">Mensalista Standard</option>
+                                    <option value="rotativo">Rotativo</option>
+                                    <option value="convenio">Convênio</option>
+                                    <option value="evento">Evento</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="renavam">RENAVAM</label>
-                                <input type="text" id="renavam" name="renavam">
+                                <label for="stay-type">Tipo de Permanência*</label>
+                                <select id="stay-type" name="stay-type" required>
+                                    <option value="">Selecione</option>
+                                    <option value="rotativo">Rotativo</option>
+                                    <option value="diaria">Diária</option>
+                                    <option value="mensalista">Mensalista</option>
+                                    <option value="pernoite">Pernoite</option>
+                                </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="license-due">Vencimento Licenciamento</label>
-                                <input type="date" id="license-due" name="license-due">
+                                <label for="entry-date">Entrada*</label>
+                                <input type="datetime-local" id="entry-date" name="entry-date" required>
                             </div>
                             <div class="form-group">
-                                <label for="insurance-due">Vencimento Seguro</label>
-                                <input type="date" id="insurance-due" name="insurance-due">
+                                <label for="exit-date">Saída prevista</label>
+                                <input type="datetime-local" id="exit-date" name="exit-date">
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="current-mileage">Quilometragem Atual*</label>
-                            <input type="number" id="current-mileage" name="current-mileage" min="0" required>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="wash-package">Serviço de Lavagem</label>
+                                <select id="wash-package" name="wash-package">
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="nenhum">Sem lavagem</option>
+                                    <option value="express">Lavagem Express</option>
+                                    <option value="completa">Lavagem Completa</option>
+                                    <option value="detalhada">Lavagem Detalhada</option>
+                                    <option value="higienizacao">Higienização Interna</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="wash-frequency">Frequência de Lavagem</label>
+                                <select id="wash-frequency" name="wash-frequency">
+                                    <option value="">Sob demanda</option>
+                                    <option value="diaria">Diária</option>
+                                    <option value="semanal">Semanal</option>
+                                    <option value="quinzenal">Quinzenal</option>
+                                    <option value="mensal">Mensal</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     
@@ -411,24 +441,24 @@
                     <div class="form-section">
                         <h3>Observações</h3>
                         <div class="form-group">
-                            <label for="notes">Observações adicionais</label>
+                            <label for="notes">Observações do cliente e preferências</label>
                             <textarea id="notes" name="notes" rows="4"></textarea>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label>Status do Veículo</label>
+                            <label>Situação no estacionamento</label>
                             <div class="checkbox-group">
                                 <div class="checkbox-item">
-                                    <input type="radio" id="status-active" name="status" value="active" checked>
-                                    <label for="status-active">Ativo</label>
+                                    <input type="radio" id="status-parked" name="status" value="parked" checked>
+                                    <label for="status-parked">Estacionado</label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="status-maintenance" name="status" value="maintenance">
-                                    <label for="status-maintenance">Em Manutenção</label>
+                                    <input type="radio" id="status-washing" name="status" value="washing">
+                                    <label for="status-washing">Em Lavagem</label>
                                 </div>
                                 <div class="checkbox-item">
-                                    <input type="radio" id="status-inactive" name="status" value="inactive">
-                                    <label for="status-inactive">Inativo</label>
+                                    <input type="radio" id="status-departed" name="status" value="departed">
+                                    <label for="status-departed">Finalizado</label>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +475,7 @@
         </div>
         
         <footer>
-            &copy; 2023 SEPARK - Sistema de Controle de Gastos Veiculares | Versão 2.1.0
+            &copy; 2023 SEPARK - Sistema de Gestão de Estacionamento e Lavagens | Versão 2.1.0
         </footer>
     </div>
 
@@ -488,7 +518,7 @@
             console.log('Dados do veículo:', vehicleData);
             
             // Simulamos o envio bem-sucedido
-            alert('Veículo cadastrado com sucesso!');
+            alert('Registro cadastrado com sucesso!');
             
             // Redirecionar para a página de listagem
             location.href = 'index.html';
@@ -498,9 +528,9 @@
         
         // Validação de formulário
         function validateForm() {
-            const requiredFields = ['model', 'brand', 'plate', 'year', 'fuel-type', 'current-mileage'];
+            const requiredFields = ['model', 'brand', 'plate', 'vehicle-type', 'parking-spot', 'plan-type', 'stay-type', 'entry-date'];
             let isValid = true;
-            
+
             requiredFields.forEach(field => {
                 const element = document.getElementById(field);
                 if (!element.value) {
@@ -512,9 +542,9 @@
             });
             
             if (!isValid) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
+                alert('Por favor, preencha os dados obrigatórios do veículo e do estacionamento.');
             }
-            
+
             return isValid;
         }
         
@@ -525,9 +555,9 @@
             
             if (editId) {
                 // É uma edição
-                document.querySelector('h2').innerHTML = '<i class="fas fa-edit"></i> Editar Veículo';
-                document.title = 'SEPARK - Editar Veículo';
-                
+                document.querySelector('h2').innerHTML = '<i class="fas fa-edit"></i> Editar Registro do Estacionamento';
+                document.title = 'SEPARK - Editar Registro';
+
                 // Em uma aplicação real, você buscaria os dados do veículo do servidor
                 // Aqui vamos simular dados pré-carregados
                 if (editId === '1') {
@@ -535,32 +565,34 @@
                         model: 'HB20',
                         brand: 'hyundai',
                         plate: 'ABC-1234',
-                        year: '2022',
+                        'vehicle-type': 'carro',
                         color: 'Branco',
-                        'fuel-type': 'flex',
-                        chassis: '9BHBG51DAEP021735',
-                        renavam: '12345678912',
-                        'license-due': '2024-04-15',
-                        'insurance-due': '2024-01-30',
-                        'current-mileage': '12450',
-                        notes: 'Veículo em bom estado. Último serviço realizado em 10/08/2023.',
-                        status: 'active'
+                        'parking-spot': 'B12',
+                        'plan-type': 'mensalista-premium',
+                        'stay-type': 'mensalista',
+                        'entry-date': '2023-08-10T08:15',
+                        'exit-date': '2023-08-10T18:00',
+                        'wash-package': 'completa',
+                        'wash-frequency': 'semanal',
+                        notes: 'Cliente mensalista. Lavar às quintas-feiras.',
+                        status: 'parked'
                     });
                 } else if (editId === '2') {
                     fillFormWithData({
                         model: 'Corolla',
                         brand: 'toyota',
                         plate: 'DEF-5678',
-                        year: '2021',
+                        'vehicle-type': 'carro',
                         color: 'Prata',
-                        'fuel-type': 'híbrido',
-                        chassis: '9BRBL3HE0J0132855',
-                        renavam: '98765432198',
-                        'license-due': '2024-03-20',
-                        'insurance-due': '2023-12-10',
-                        'current-mileage': '25780',
-                        notes: 'Em manutenção desde 05/09/2023. Previsão de liberação: 15/09/2023',
-                        status: 'maintenance'
+                        'parking-spot': 'C07',
+                        'plan-type': 'rotativo',
+                        'stay-type': 'diaria',
+                        'entry-date': '2023-08-10T07:50',
+                        'exit-date': '2023-08-10T19:00',
+                        'wash-package': 'detalhada',
+                        'wash-frequency': '',
+                        notes: 'Lavagem detalhada em andamento. Avisar ao finalizar.',
+                        status: 'washing'
                     });
                 }
             }
@@ -571,10 +603,11 @@
             for (const key in data) {
                 const element = document.getElementById(key);
                 if (element) {
-                    if (element.type === 'radio') {
-                        document.querySelector(`input[name="${key}"][value="${data[key]}"]`).checked = true;
-                    } else {
-                        element.value = data[key];
+                    element.value = data[key];
+                } else if (key === 'status') {
+                    const radio = document.querySelector(`input[name="status"][value="${data[key]}"]`);
+                    if (radio) {
+                        radio.checked = true;
                     }
                 }
             }
