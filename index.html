@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEPARK - Meus Veículos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a4c7c, #2c3e50);
+            color: #333;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a4c7c, #2c3e50);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        nav {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-item {
+            color: white;
+            text-align: center;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #1a4c7c;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(26, 76, 124, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #1a4c7c, #2c3e50);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        footer {
+            background: #1a4c7c;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 8px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            margin-bottom: 20px;
+        }
+        
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .vehicle-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .vehicle-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .vehicle-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(46, 204, 113, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .vehicle-details {
+            padding: 20px;
+        }
+        
+        .vehicle-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .vehicle-plate {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .vehicle-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .vehicle-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .vehicle-info-label {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .vehicle-info-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .vehicle-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .vehicle-actions button {
+            padding: 10px;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .search-filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-filter-bar input {
+            flex: 1;
+        }
+        
+        .search-filter-bar select {
+            width: 200px;
+        }
+        
+        .search-filter-bar button {
+            width: auto;
+            padding: 14px 20px;
+        }
+        
+        @media (max-width: 1024px) {
+            .vehicle-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-filter-bar {
+                flex-direction: column;
+            }
+            
+            .search-filter-bar select {
+                width: 100%;
+            }
+            
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                margin-bottom: 10px;
+            }
+        }
+    
+        /* Estilos para o modal de detalhes */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1a4c7c, #2c3e50);
+            color: white;
+            padding: 20px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .vehicle-detail-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        .vehicle-detail-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .vehicle-detail-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .detail-item {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .detail-label {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .documents-section, .history-section {
+            margin-top: 30px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 20px;
+        }
+        
+        .documents-section h3, .history-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .document-item, .history-item {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .document-name, .history-title {
+            font-weight: 500;
+        }
+        
+        .document-date, .history-date {
+            font-size: 13px;
+            color: #6c757d;
+        }
+        
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #27ae60;
+        }
+        
+        .status-maintenance {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+        
+        .status-inactive {
+            background-color: rgba(108, 117, 125, 0.2);
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .vehicle-detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .vehicle-detail-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <div class="logo-text">SEPARK</div>
+            </div>
+            <div style="color: rgba(255, 255, 255, 0.8);">
+                Bem-vindo ao seu sistema de controle de gastos veiculares
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="nav-item active">Meus Veículos</div>
+            <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Veículo</div>
+            <div class="nav-item" onclick="location.href='relatorio.html'">Relatório Financeiro</div>
+            <div class="nav-item" onclick="location.href='servicos.html'">Serviços</div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="content-section">
+                <h2><i class="fas fa-car-side"></i> Meus Veículos</h2>
+                
+                <div class="search-filter-bar">
+                    <input type="text" placeholder="Buscar por modelo, placa ou ano..." id="search-input">
+                    <select id="status-filter">
+                        <option value="">Status: Todos</option>
+                        <option value="ativo">Ativos</option>
+                        <option value="manutencao">Em Manutenção</option>
+                        <option value="inativo">Inativos</option>
+                    </select>
+                    <button onclick="filterVehicles()"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+                
+                <div class="vehicle-grid">
+                    <!-- Veículo 1 -->
+                    <div class="vehicle-card">
+                        <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHl1bmRhaSUyMGhiMjB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60')">
+                            <div class="vehicle-status">Ativo</div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-name">Hyundai HB20</div>
+                            <div class="vehicle-plate">Placa: ABC-1234</div>
+                            <div class="vehicle-info">
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Ano</span>
+                                    <span class="vehicle-info-value">2022</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Combustível</span>
+                                    <span class="vehicle-info-value">Flex</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">KM Atual</span>
+                                    <span class="vehicle-info-value">12.450</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Última revisão</span>
+                                    <span class="vehicle-info-value">10/08/2023</span>
+                                </div>
+                            </div>
+                            <div class="vehicle-actions">
+                                <button onclick="location.href='servicos.html?id=1'"><i class="fas fa-tools"></i> Serviços</button>
+                                <button onclick="viewDetails(1)"><i class="fas fa-info-circle"></i> Detalhes</button>
+                                <button class="btn-secondary" onclick="editVehicle(1)"><i class="fas fa-edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Veículo 2 -->
+                    <div class="vehicle-card">
+                        <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRveW90YSUyMGNvcm9sbGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60')">
+                            <div class="vehicle-status">Em Manutenção</div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-name">Toyota Corolla</div>
+                            <div class="vehicle-plate">Placa: DEF-5678</div>
+                            <div class="vehicle-info">
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Ano</span>
+                                    <span class="vehicle-info-value">2021</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Combustível</span>
+                                    <span class="vehicle-info-value">Híbrido</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">KM Atual</span>
+                                    <span class="vehicle-info-value">25.780</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Última revisão</span>
+                                    <span class="vehicle-info-value">05/07/2023</span>
+                                </div>
+                            </div>
+                            <div class="vehicle-actions">
+                                <button onclick="location.href='servicos.html?id=2'"><i class="fas fa-tools"></i> Serviços</button>
+                                <button onclick="viewDetails(2)"><i class="fas fa-info-circle"></i> Detalhes</button>
+                                <button class="btn-secondary" onclick="editVehicle(2)"><i class="fas fa-edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Veículo 3 -->
+                    <div class="vehicle-card">
+                        <div class="vehicle-image" style="background-image: url('https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dm9sa3N3YWdlbiUyMGdvbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60')">
+                            <div class="vehicle-status" style="background-color: rgba(108, 117, 125, 0.9);">Inativo</div>
+                        </div>
+                        <div class="vehicle-details">
+                            <div class="vehicle-name">Volkswagen Gol</div>
+                            <div class="vehicle-plate">Placa: GHI-9012</div>
+                            <div class="vehicle-info">
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Ano</span>
+                                    <span class="vehicle-info-value">2019</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Combustível</span>
+                                    <span class="vehicle-info-value">Flex</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">KM Atual</span>
+                                    <span class="vehicle-info-value">45.320</span>
+                                </div>
+                                <div class="vehicle-info-item">
+                                    <span class="vehicle-info-label">Última revisão</span>
+                                    <span class="vehicle-info-value">22/05/2023</span>
+                                </div>
+                            </div>
+                            <div class="vehicle-actions">
+                                <button onclick="location.href='servicos.html?id=3'"><i class="fas fa-tools"></i> Serviços</button>
+                                <button onclick="viewDetails(3)"><i class="fas fa-info-circle"></i> Detalhes</button>
+                                <button class="btn-secondary" onclick="editVehicle(3)"><i class="fas fa-edit"></i> Editar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn-success" onclick="location.href='cadastro.html'"><i class="fas fa-plus"></i> Adicionar Novo Veículo</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2023 SEPARK - Sistema de Controle de Gastos Veiculares | Versão 2.1.0
+        </footer>
+    </div>
+    
+    <!-- Modal de Detalhes do Veículo -->
+    <div class="modal-overlay" id="vehicle-details-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Detalhes do Veículo</div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="vehicle-detail-content">
+                    <!-- O conteúdo será preenchido dinamicamente -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal()">Fechar</button>
+                <button id="edit-vehicle-btn" onclick="editFromModal()">Editar</button>
+                <button id="services-vehicle-btn" onclick="goToServices()">Ver Serviços</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados simulados dos veículos
+        const vehiclesData = {
+            1: {
+                id: 1,
+                name: "Hyundai HB20",
+                plate: "ABC-1234",
+                year: 2022,
+                color: "Branco",
+                fuel: "Flex",
+                mileage: 12450,
+                lastService: "10/08/2023",
+                status: "active",
+                chassis: "9BHBG51DAEP021735",
+                renavam: "12345678912",
+                purchase: "15/01/2022",
+                price: "R$ 72.990,00",
+                insurance: {
+                    company: "SeguroAuto",
+                    policy: "32156-981",
+                    expiry: "30/01/2024",
+                    value: "R$ 1.750,00"
+                },
+                documents: [
+                    { name: "CRLV 2023", date: "28/02/2023", file: "#" },
+                    { name: "Comprovante IPVA 2023", date: "15/03/2023", file: "#" },
+                    { name: "Contrato de Seguro", date: "15/01/2023", file: "#" }
+                ],
+                history: [
+                    { title: "Troca de óleo e filtros", date: "10/08/2023", km: 12200, value: "R$ 350,00" },
+                    { title: "Revisão dos 10.000 Km", date: "15/03/2023", km: 10050, value: "R$ 850,00" },
+                    { title: "Troca de pastilhas de freio", date: "10/01/2023", km: 8200, value: "R$ 420,00" }
+                ],
+                image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHl1bmRhaSUyMGhiMjB8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+            },
+            2: {
+                id: 2,
+                name: "Toyota Corolla",
+                plate: "DEF-5678",
+                year: 2021,
+                color: "Prata",
+                fuel: "Híbrido",
+                mileage: 25780,
+                lastService: "05/07/2023",
+                status: "maintenance",
+                chassis: "9BRBL3HE0J0132855",
+                renavam: "98765432198",
+                purchase: "20/06/2021",
+                price: "R$ 145.990,00",
+                insurance: {
+                    company: "SeguroTotal",
+                    policy: "82546-123",
+                    expiry: "15/06/2024",
+                    value: "R$ 2.800,00"
+                },
+                documents: [
+                    { name: "CRLV 2023", date: "15/01/2023", file: "#" },
+                    { name: "Comprovante IPVA 2023", date: "10/02/2023", file: "#" },
+                    { name: "Contrato de Seguro", date: "25/06/2023", file: "#" }
+                ],
+                history: [
+                    { title: "Revisão completa", date: "05/07/2023", km: 24500, value: "R$ 1.200,00" },
+                    { title: "Alinhamento e balanceamento", date: "03/04/2023", km: 19800, value: "R$ 320,00" },
+                    { title: "Revisão dos 15.000 Km", date: "12/12/2022", km: 15100, value: "R$ 980,00" }
+                ],
+                image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRveW90YSUyMGNvcm9sbGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+            },
+            3: {
+                id: 3,
+                name: "Volkswagen Gol",
+                plate: "GHI-9012",
+                year: 2019,
+                color: "Vermelho",
+                fuel: "Flex",
+                mileage: 45320,
+                lastService: "22/05/2023",
+                status: "inactive",
+                chassis: "9BWAA45U8KT098765",
+                renavam: "45678912356",
+                purchase: "10/08/2019",
+                price: "R$ 59.990,00",
+                insurance: {
+                    company: "SeguraCarro",
+                    policy: "12345-678",
+                    expiry: "12/08/2023",
+                    value: "R$ 1.450,00"
+                },
+                documents: [
+                    { name: "CRLV 2023", date: "10/01/2023", file: "#" },
+                    { name: "Comprovante IPVA 2023", date: "05/03/2023", file: "#" },
+                    { name: "Contrato de Seguro (Vencido)", date: "10/08/2022", file: "#" }
+                ],
+                history: [
+                    { title: "Troca de correia dentada", date: "22/05/2023", km: 45000, value: "R$ 620,00" },
+                    { title: "Troca de amortecedores", date: "15/01/2023", km: 42500, value: "R$ 980,00" },
+                    { title: "Revisão completa", date: "08/10/2022", km: 38200, value: "R$ 750,00" }
+                ],
+                image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dm9sa3N3YWdlbiUyMGdvbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            }
+        };
+        
+        // Filtrar veículos
+        function filterVehicles() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value;
+            
+            // Simulação de filtro - num ambiente real, isso seria feito via AJAX
+            alert(`Buscando veículos com: "${searchTerm}" e status: ${statusFilter || 'Todos'}`);
+            
+            // Aqui você implementaria a lógica real para filtrar os veículos
+            // por enquanto apenas simulamos com um alerta
+        }
+        
+        // Variável para armazenar ID do veículo atual no modal
+        let currentVehicleId = null;
+        
+        // Ver detalhes do veículo
+        function viewDetails(id) {
+            currentVehicleId = id;
+            const vehicle = vehiclesData[id];
+            
+            if (!vehicle) {
+                alert('Veículo não encontrado!');
+                return;
+            }
+            
+            // Preencher o modal com os dados do veículo
+            const modalContent = document.getElementById('vehicle-detail-content');
+            
+            // Status class
+            let statusClass = 'status-inactive';
+            let statusText = 'Inativo';
+            
+            if (vehicle.status === 'active') {
+                statusClass = 'status-active';
+                statusText = 'Ativo';
+            } else if (vehicle.status === 'maintenance') {
+                statusClass = 'status-maintenance';
+                statusText = 'Em Manutenção';
+            }
+            
+            modalContent.innerHTML = `
+                <div class="vehicle-detail-content">
+                    <div>
+                        <img src="${vehicle.image}" class="vehicle-detail-image" alt="${vehicle.name}">
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                    <div class="vehicle-detail-info">
+                        <div class="detail-item">
+                            <div class="detail-label">Modelo</div>
+                            <div class="detail-value">${vehicle.name}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Placa</div>
+                            <div class="detail-value">${vehicle.plate}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Ano</div>
+                            <div class="detail-value">${vehicle.year}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Cor</div>
+                            <div class="detail-value">${vehicle.color}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Combustível</div>
+                            <div class="detail-value">${vehicle.fuel}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Quilometragem</div>
+                            <div class="detail-value">${vehicle.mileage.toLocaleString('pt-BR')} Km</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Chassi</div>
+                            <div class="detail-value">${vehicle.chassis}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">RENAVAM</div>
+                            <div class="detail-value">${vehicle.renavam}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Data de Compra</div>
+                            <div class="detail-value">${vehicle.purchase}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Valor de Aquisição</div>
+                            <div class="detail-value">${vehicle.price}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Seguradora</div>
+                            <div class="detail-value">${vehicle.insurance.company}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Vencimento do Seguro</div>
+                            <div class="detail-value">${vehicle.insurance.expiry}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="documents-section">
+                    <h3>Documentos</h3>
+                    ${vehicle.documents.map(doc => `
+                        <div class="document-item">
+                            <div class="document-name">${doc.name}</div>
+                            <div class="document-date">${doc.date}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="history-section">
+                    <h3>Histórico de Manutenções</h3>
+                    ${vehicle.history.map(item => `
+                        <div class="history-item">
+                            <div>
+                                <div class="history-title">${item.title}</div>
+                                <div class="history-date">${item.date} | ${item.km.toLocaleString('pt-BR')} Km</div>
+                            </div>
+                            <div class="history-value">${item.value}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Exibir o modal
+            document.getElementById('vehicle-details-modal').style.display = 'flex';
+        }
+        
+        // Fechar o modal
+        function closeModal() {
+            document.getElementById('vehicle-details-modal').style.display = 'none';
+            currentVehicleId = null;
+        }
+        
+        // Editar veículo a partir do modal
+        function editFromModal() {
+            if (currentVehicleId) {
+                location.href = `cadastro.html?edit=${currentVehicleId}`;
+            }
+        }
+        
+        // Ir para serviços a partir do modal
+        function goToServices() {
+            if (currentVehicleId) {
+                location.href = `servicos.html?id=${currentVehicleId}`;
+            }
+        }
+        
+        // Editar veículo
+        function editVehicle(id) {
+            location.href = `cadastro.html?edit=${id}`;
+        }
+        
+        // Navegação entre páginas
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
