@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEPARK - Relatório Financeiro</title>
+    <title>SEPARK - Relatório de Estacionamento</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -356,15 +356,15 @@
                 <div class="logo-text">SEPARK</div>
             </div>
             <div style="color: rgba(255, 255, 255, 0.8);">
-                Bem-vindo ao seu sistema de controle de gastos veiculares
+                Bem-vindo ao sistema de gestão do estacionamento e lavagens SEPARK
             </div>
         </div>
     </header>
     
     <nav>
         <div class="nav-container">
-            <div class="nav-item" onclick="location.href='index.html'">Meus Veículos</div>
-            <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Veículo</div>
+            <div class="nav-item" onclick="location.href='index.html'">Veículos no Estacionamento</div>
+            <div class="nav-item" onclick="location.href='cadastro.html'">Cadastrar Registro</div>
             <div class="nav-item active">Relatório Financeiro</div>
             <div class="nav-item" onclick="location.href='servicos.html'">Serviços</div>
         </div>
@@ -397,11 +397,13 @@
                         <label for="service-type">Tipo de Serviço</label>
                         <select id="service-type">
                             <option value="">Todos os Serviços</option>
-                            <option value="manutencao">Manutenção</option>
-                            <option value="lavagem">Lavagem</option>
-                            <option value="estacionamento">Estacionamento</option>
-                            <option value="combustivel">Combustível</option>
-                            <option value="seguro">Seguro</option>
+                            <option value="estacionamento-mensal">Mensalidade Estacionamento</option>
+                            <option value="estacionamento-diaria">Diária / Rotativo</option>
+                            <option value="lavagem-express">Lavagem Express</option>
+                            <option value="lavagem-completa">Lavagem Completa</option>
+                            <option value="higienizacao">Higienização</option>
+                            <option value="protecao-pintura">Proteção de Pintura</option>
+                            <option value="outros-servicos">Outros Serviços</option>
                         </select>
                     </div>
                 </div>
@@ -414,19 +416,19 @@
                 <div class="summary-cards">
                     <div class="summary-card total">
                         <h3>Gasto Total</h3>
-                        <div class="amount">R$ 5.875,00</div>
+                        <div class="amount">R$ 1.985,00</div>
                     </div>
                     <div class="summary-card monthly">
                         <h3>Média Mensal</h3>
-                        <div class="amount">R$ 489,58</div>
+                        <div class="amount">R$ 248,13</div>
                     </div>
                     <div class="summary-card">
                         <h3>Maior Gasto</h3>
-                        <div class="amount">R$ 1.750,00</div>
+                        <div class="amount">R$ 420,00</div>
                     </div>
                     <div class="summary-card">
                         <h3>Menor Gasto</h3>
-                        <div class="amount">R$ 50,00</div>
+                        <div class="amount">R$ 35,00</div>
                     </div>
                 </div>
                 
@@ -447,43 +449,75 @@
                 <div class="expense-list">
                     <div class="expense-item">
                         <div>
-                            <span class="expense-category">Manutenção</span>
-                            <div class="expense-date">10/08/2023</div>
-                        </div>
-                        <div>Lavagem Simples</div>
-                        <div class="expense-amount">R$ 350,00</div>
-                    </div>
-                    <div class="expense-item">
-                        <div>
-                            <span class="expense-category">Lavagem Meia Sola</span>
-                            <div class="expense-date">05/08/2023</div>
-                        </div>
-                        <div>Lavagem de Motor</div>
-                        <div class="expense-amount">R$ 250,00</div>
-                    </div>
-                    <div class="expense-item">
-                        <div>
-                            <span class="expense-category">Estacionamento</span>
+                            <span class="expense-category">Mensalidade Estacionamento</span>
                             <div class="expense-date">01/08/2023</div>
                         </div>
-                        <div>Shopping</div>
-                        <div class="expense-amount">R$ 50,00</div>
+                        <div>Plano Mensal Premium - HB20</div>
+                        <div class="expense-amount">R$ 320,00</div>
                     </div>
                     <div class="expense-item">
                         <div>
-                            <span class="expense-category">Lavagem</span>
-                            <div class="expense-date">28/07/2023</div>
+                            <span class="expense-category">Mensalidade Estacionamento</span>
+                            <div class="expense-date">01/07/2023</div>
                         </div>
-                        <div>Lavagem completa</div>
-                        <div class="expense-amount">R$ 80,00</div>
+                        <div>Plano Mensal Premium - HB20</div>
+                        <div class="expense-amount">R$ 320,00</div>
                     </div>
                     <div class="expense-item">
                         <div>
-                            <span class="expense-category">Seguro Estacionamento</span>
+                            <span class="expense-category">Mensalidade Estacionamento</span>
+                            <div class="expense-date">01/06/2023</div>
+                        </div>
+                        <div>Plano Mensal Premium - HB20</div>
+                        <div class="expense-amount">R$ 320,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Lavagem Detalhada</span>
+                            <div class="expense-date">10/08/2023</div>
+                        </div>
+                        <div>Detailing completo - Corolla</div>
+                        <div class="expense-amount">R$ 180,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Higienização Interna</span>
+                            <div class="expense-date">03/08/2023</div>
+                        </div>
+                        <div>Higienização completa - HB20</div>
+                        <div class="expense-amount">R$ 120,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Proteção de Pintura</span>
+                            <div class="expense-date">22/07/2023</div>
+                        </div>
+                        <div>Aplicação de cera e selante - HB20</div>
+                        <div class="expense-amount">R$ 240,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Diária Rotativa</span>
+                            <div class="expense-date">05/08/2023</div>
+                        </div>
+                        <div>Rotativo executivo - Vaga C07</div>
+                        <div class="expense-amount">R$ 65,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Lavagem Express</span>
+                            <div class="expense-date">09/08/2023</div>
+                        </div>
+                        <div>Pacote express - Gol</div>
+                        <div class="expense-amount">R$ 40,00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div>
+                            <span class="expense-category">Reserva para Evento</span>
                             <div class="expense-date">15/07/2023</div>
                         </div>
-                        <div>Seguro anual</div>
-                        <div class="expense-amount">R$ 17,00</div>
+                        <div>Bloqueio de cinco vagas corporativas</div>
+                        <div class="expense-amount">R$ 380,00</div>
                     </div>
                 </div>
                 
@@ -495,29 +529,31 @@
         </div>
         
         <footer>
-            &copy; 2023 SEPARK - Sistema de Controle de Gastos Veiculares | Versão 2.1.0
+            &copy; 2023 SEPARK - Sistema de Gestão de Estacionamento e Lavagens | Versão 2.1.0
         </footer>
     </div>
 
     <script>
         // Dados para os gráficos
         const categoryData = {
-            labels: ['Estacionamento', 'Lavagem', 'Manutenção', 'Combustível', 'Seguro'],
+            labels: ['Mensalidades', 'Diárias', 'Lavagens', 'Higienização', 'Proteção de Pintura', 'Reservas'],
             datasets: [{
-                data: [170, 280, 850, 825, 3750],
+                data: [960, 65, 220, 120, 240, 380],
                 backgroundColor: [
                     'rgba(255, 159, 64, 0.7)',
                     'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
                     'rgba(75, 192, 192, 0.7)',
-                    'rgba(153, 102, 255, 0.7)'
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(46, 204, 113, 0.7)',
+                    'rgba(255, 99, 132, 0.7)'
                 ],
                 borderColor: [
                     'rgba(255, 159, 64, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(46, 204, 113, 1)',
+                    'rgba(255, 99, 132, 1)'
                 ],
                 borderWidth: 1
             }]
@@ -527,7 +563,7 @@
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
                 label: 'Gastos Mensais',
-                data: [450, 380, 520, 390, 420, 550, 1830, 650, 0, 0, 0, 0],
+                data: [180, 210, 160, 190, 220, 245, 360, 420, 0, 0, 0, 0],
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 tension: 0.4,
